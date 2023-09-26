@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "308547970885",
+    "project_id": "ullamki",
+    "storage_bucket": "ullamki.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308547970885:android:5db39947c84bdbc364402c",
+        "android_client_info": {
+          "package_name": "com.example.ullamki"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "308547970885-9mhf55j5ph27odjkn8ebirl323a6g8m0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsh-H45JJ8-2ZuLg80PEUvSaBkpKC9uRM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "308547970885-9mhf55j5ph27odjkn8ebirl323a6g8m0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
