@@ -1,9 +1,15 @@
+import 'dart:core';
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 class MyButton extends StatelessWidget {
+  final String name;
+  final AssetImage logo;
   final Function()? onTap;
 
-  const MyButton({super.key, required this.onTap});
+  const MyButton(
+      {super.key, required this.onTap, required this.name, required this.logo});
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +24,23 @@ class MyButton extends StatelessWidget {
             border:
                 Border.all(color: Theme.of(context).colorScheme.onBackground)),
         child: Center(
-          child: Text(
-            "Sign In",
-            style: Theme.of(context).textTheme.titleMedium,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image(
+                image: logo,
+                fit: BoxFit.cover,
+                height: 30,
+              ),
+              Text(
+                "Sign In with ${name}",
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              SizedBox(
+                width: 5,
+              )
+            ],
           ),
         ),
       ),

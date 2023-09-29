@@ -98,7 +98,7 @@ class _SignInScreenState extends State<SignInScreen> {
           children: [
             Text(
               'skip',
-              style: TextStyle(color: Theme.of(context).hintColor),
+              style: Theme.of(context).textTheme.bodyMedium,
             )
           ],
         ),
@@ -203,13 +203,22 @@ class _SignInScreenState extends State<SignInScreen> {
                 children: [
                   // google button
                   //SquareTile(imagePath: 'lib/images/google.png'),
-                  MyButton(onTap: () {}),
+                  MyButton(
+                      onTap: () {},
+                      name: 'Google',
+                      logo: AssetImage('assets/images/google-logo.png')),
                   SizedBox(height: 10),
-                  MyButton(onTap: () {}),
+                  MyButton(
+                      onTap: () {},
+                      name: 'Google',
+                      logo: AssetImage('assets/images/google-logo.png')),
                   SizedBox(
                     height: 10,
                   ),
-                  MyButton(onTap: () {}),
+                  MyButton(
+                      onTap: () {},
+                      name: 'Google',
+                      logo: AssetImage('assets/images/google-logo.png')),
 
                   // apple button
                   //SquareTile(imagePath: 'lib/images/apple.png')

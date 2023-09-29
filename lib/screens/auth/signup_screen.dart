@@ -91,14 +91,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(
+              'skip',
+              style: Theme.of(context).textTheme.bodySmall,
+            )
+          ],
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 100),
+              const SizedBox(height: 40),
 
               // logo
               Text(
@@ -201,13 +212,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 children: [
                   // google button
                   //SquareTile(imagePath: 'lib/images/google.png'),
-                  MyButton(onTap: () {}),
+                  MyButton(
+                      onTap: () {},
+                      name: 'Google',
+                      logo: AssetImage('assets/images/google-logo.png')),
                   SizedBox(height: 10),
-                  MyButton(onTap: () {}),
+                  MyButton(
+                      onTap: () {},
+                      name: 'Google',
+                      logo: AssetImage('assets/images/google-logo.png')),
                   SizedBox(
                     height: 10,
                   ),
-                  MyButton(onTap: () {}),
+                  MyButton(
+                    onTap: () {},
+                    name: 'Google',
+                    logo: AssetImage('assets/images/google-logo.png'),
+                  ),
 
                   // apple button
                   //SquareTile(imagePath: 'lib/images/apple.png')
