@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ullamki/components/my_button.dart';
 import 'package:ullamki/components/my_textfield.dart';
-import 'package:ullamki/components/square_tile.dart';
 
 class SignInScreen extends StatefulWidget {
   final Function()? onTap;
@@ -92,33 +91,39 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(
+              'skip',
+              style: TextStyle(color: Theme.of(context).hintColor),
+            )
+          ],
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 50),
+              const SizedBox(height: 40),
 
               // logo
-              const Icon(
-                Icons.lock,
-                size: 100,
+              Text(
+                'Sign In',
+                style: Theme.of(context).textTheme.displayMedium,
               ),
 
-              const SizedBox(height: 50),
+              const SizedBox(height: 40),
 
               // welcome back, you've been missed!
-              Text(
-                'Welcome back you\'ve been missed!',
-                style: TextStyle(
-                  color: Colors.grey[700],
-                  fontSize: 16,
-                ),
-              ),
+              Text('Welcome back you\'ve been missed!',
+                  style: Theme.of(context).textTheme.bodyLarge),
 
-              const SizedBox(height: 25),
+              const SizedBox(height: 20),
 
               // email textfield
               MyTextField(
@@ -142,24 +147,25 @@ class _SignInScreenState extends State<SignInScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'Forgot Password?',
-                      style: TextStyle(color: Colors.grey[600]),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'Forgot Password?',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
                     ),
+                    OutlinedButton(
+                        onPressed: () {},
+                        child: Text(
+                          'Sign In',
+                        ))
                   ],
                 ),
               ),
 
-              const SizedBox(height: 25),
-
-              // sign in button
-              MyButton(
-                onTap: signUserIn,
-              ),
-
-              const SizedBox(height: 50),
+              const SizedBox(height: 20),
 
               // or continue with
               Padding(
@@ -189,23 +195,28 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
               ),
 
-              const SizedBox(height: 50),
+              const SizedBox(height: 20),
 
               // google + apple sign in buttons
-              Row(
+              Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   // google button
                   //SquareTile(imagePath: 'lib/images/google.png'),
-
-                  SizedBox(width: 25),
+                  MyButton(onTap: () {}),
+                  SizedBox(height: 10),
+                  MyButton(onTap: () {}),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  MyButton(onTap: () {}),
 
                   // apple button
                   //SquareTile(imagePath: 'lib/images/apple.png')
                 ],
               ),
 
-              const SizedBox(height: 50),
+              const SizedBox(height: 40),
 
               // not a member? register now
               Row(
@@ -213,14 +224,12 @@ class _SignInScreenState extends State<SignInScreen> {
                 children: [
                   Text(
                     'Not a member?',
-                    style: TextStyle(color: Colors.grey[700]),
                   ),
                   const SizedBox(width: 4),
-                  const Text(
-                    'Register now',
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
+                  GestureDetector(
+                    onTap: widget.onTap,
+                    child: const Text(
+                      'Register now',
                     ),
                   ),
                 ],
