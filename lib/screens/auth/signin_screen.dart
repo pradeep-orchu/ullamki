@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ullamki/components/my_button.dart';
 import 'package:ullamki/components/my_textfield.dart';
+import 'package:ullamki/service/auth_service.dart';
 
 class SignInScreen extends StatefulWidget {
   final Function()? onTap;
@@ -12,44 +13,31 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  final AuthService authService = AuthService();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   // sign user in method
   void signUserIn() async {
     // show loading circle
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
+    // showDialog(
+    //   context: context,
+    //   builder: (context) {
+    //     return const Center(
+    //       child: CircularProgressIndicator(),
+    //     );
+    //   },
+    // );
 
     // try sign in
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      );
-      // pop the loading circle
-      Navigator.pop(context);
-    } on FirebaseAuthException catch (e) {
-      // pop the loading circle
-      Navigator.pop(context);
-      // WRONG EMAIL
-      if (e.code == 'user-not-found') {
-        // show error to user
-        wrongEmailMessage();
-      }
+    authService.signInWithEmailAndPassword(
+        emailController.text.trim(), passwordController.text.trim());
+    // pop the loading circle
+    // Navigator.pop(context);
+  }
 
-      // WRONG PASSWORD
-      else if (e.code == 'wrong-password') {
-        // show error to user
-        wrongPasswordMessage();
-      }
-    }
+  void SignInAnonymously() {
+    authService.SignINWithAnonymously();
   }
 
   // wrong email message popup
@@ -93,15 +81,14 @@ class _SignInScreenState extends State<SignInScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.background,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Text(
-              'skip',
-              style: Theme.of(context).textTheme.bodyMedium,
-            )
-          ],
-        ),
+        actions: [
+          TextButton(
+              onPressed: SignInAnonymously,
+              child: Text(
+                'Skip',
+                style: Theme.of(context).textTheme.bodySmall,
+              ))
+        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -157,7 +144,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                     ),
                     OutlinedButton(
-                        onPressed: () {},
+                        onPressed: signUserIn,
                         child: Text(
                           'Sign In',
                         ))

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ullamki/components/my_button.dart';
 import 'package:ullamki/components/my_textfield.dart';
+import 'package:ullamki/service/auth_service.dart';
 
 class SignUpScreen extends StatefulWidget {
   final Function()? onTap;
@@ -12,44 +13,26 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  final AuthService authService = AuthService();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final cpassword = TextEditingController();
 
   // sign user in method
-  void signUserIn() async {
+  void signUserUp() async {
     // show loading circle
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
-    );
+    // showDialog(
+    //   context: context,
+    //   builder: (context) {
+    //     return const Center(
+    //       child: CircularProgressIndicator(),
+    //     );
+    //   },
+    // );
 
     // try sign in
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      );
-      // pop the loading circle
-      Navigator.pop(context);
-    } on FirebaseAuthException catch (e) {
-      // pop the loading circle
-      Navigator.pop(context);
-      // WRONG EMAIL
-      if (e.code == 'user-not-found') {
-        // show error to user
-        wrongEmailMessage();
-      }
-
-      // WRONG PASSWORD
-      else if (e.code == 'wrong-password') {
-        // show error to user
-        wrongPasswordMessage();
-      }
-    }
+    authService.signUpWithEmailAndPassword(
+        emailController.text.trim(), passwordController.text.trim());
   }
 
   // wrong email message popup
@@ -86,6 +69,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         );
       },
     );
+  }
+
+  void GoogleSignUp() {
+    authService.signInWithGoogle();
   }
 
   @override
@@ -145,7 +132,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
               // password textfield
               MyTextField(
-                controller: passwordController,
+                controller: cpassword,
                 hintText: 'Confirm Password',
                 obscureText: true,
               ),
@@ -159,7 +146,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     TextButton(
-                      onPressed: () {},
+                      onPressed: signUserUp,
                       child: Text(
                         'Forgot Password?',
                         style: Theme.of(context).textTheme.bodySmall,
@@ -213,7 +200,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   // google button
                   //SquareTile(imagePath: 'lib/images/google.png'),
                   MyButton(
-                      onTap: () {},
+                      onTap: GoogleSignUp,
                       name: 'Google',
                       logo: AssetImage('assets/images/google-logo.png')),
                   SizedBox(height: 10),

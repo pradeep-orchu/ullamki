@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:ullamki/firebase_options.dart';
 import 'package:ullamki/screens/home/home_screen.dart';
 import 'package:ullamki/screens/home/start_screen.dart';
+import 'package:ullamki/screens/notification/notification_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Ullanki',
+      title: 'Ullamki',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey),
         useMaterial3: true,
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
       routes: {
         'start': (context) => StartScreen(),
         'home': (context) => HomeScreen(),
+        'notification': (context) => NotificationScreen(),
       },
       initialRoute: 'start',
     );
