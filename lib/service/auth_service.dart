@@ -50,7 +50,7 @@ class AuthService {
     }
   }
 
-  Future SignINWithAnonymously() async {
+  Future SignInWithAnonymously() async {
     try {
       await FirebaseAuth.instance.signInAnonymously();
       print("Signed in with temporary account.");

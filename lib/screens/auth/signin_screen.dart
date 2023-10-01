@@ -37,7 +37,7 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   void SignInAnonymously() {
-    authService.SignINWithAnonymously();
+    authService.SignInWithAnonymously();
   }
 
   // wrong email message popup
@@ -96,15 +96,13 @@ class _SignInScreenState extends State<SignInScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 40),
-
               // logo
               Text(
                 'Sign In',
                 style: Theme.of(context).textTheme.displayMedium,
               ),
 
-              const SizedBox(height: 40),
+              const SizedBox(height: 20),
 
               // welcome back, you've been missed!
               Text('Welcome back you\'ve been missed!',
@@ -132,7 +130,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
               // forgot password?
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -156,26 +154,26 @@ class _SignInScreenState extends State<SignInScreen> {
 
               // or continue with
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   children: [
                     Expanded(
                       child: Divider(
                         thickness: 0.5,
-                        color: Colors.grey[400],
+                        color: Theme.of(context).hintColor,
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
                       child: Text(
                         'Or continue with',
-                        style: TextStyle(color: Colors.grey[700]),
+                        style: TextStyle(color: Theme.of(context).hintColor),
                       ),
                     ),
                     Expanded(
                       child: Divider(
                         thickness: 0.5,
-                        color: Colors.grey[400],
+                        color: Theme.of(context).hintColor,
                       ),
                     ),
                   ],
@@ -197,15 +195,15 @@ class _SignInScreenState extends State<SignInScreen> {
                   SizedBox(height: 10),
                   MyButton(
                       onTap: () {},
-                      name: 'Google',
-                      logo: AssetImage('assets/images/google-logo.png')),
+                      name: 'Apple',
+                      logo: AssetImage('assets/images/apple-logo.png')),
                   SizedBox(
                     height: 10,
                   ),
                   MyButton(
                       onTap: () {},
-                      name: 'Google',
-                      logo: AssetImage('assets/images/google-logo.png')),
+                      name: 'Facebook',
+                      logo: AssetImage('assets/images/facebook-logo.png')),
 
                   // apple button
                   //SquareTile(imagePath: 'lib/images/apple.png')
@@ -220,6 +218,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 children: [
                   Text(
                     'Not a member?',
+                    style: TextStyle(color: Theme.of(context).hintColor),
                   ),
                   const SizedBox(width: 4),
                   GestureDetector(

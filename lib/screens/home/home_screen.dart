@@ -18,34 +18,52 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.background,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.location_on_outlined),
+            Text('Eluru,AP'),
+          ],
+        ),
+        actions: [
+          IconButton(onPressed: () {}, icon: Icon(Icons.search_outlined))
+        ],
       ),
       drawer: Drawer(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             DrawerHeader(
-                decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primaryContainer),
                 child: Center(
                     child: Text(
-                  'Ullanki',
-                  style: Theme.of(context).textTheme.displayMedium,
-                ))),
+              'Ullanki',
+              style: Theme.of(context).textTheme.displayMedium,
+            ))),
             TextButton(
               onPressed: () {
                 Navigator.pushNamed(context, 'notification');
               },
               child: Text(
                 'Notification',
-                style: Theme.of(context).textTheme.titleMedium,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, 'settings');
+              },
+              child: Text(
+                'Settings',
+                style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
             TextButton(
               onPressed: SignOut,
               child: Text(
                 'Sign out',
-                style: Theme.of(context).textTheme.titleMedium,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
           ],
