@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ullamki/service/auth_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -9,11 +8,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final AuthService authService = AuthService();
-  void SignOut() {
-    authService.signOut();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             TextButton(
-              onPressed: SignOut,
+              onPressed: () {},
               child: Text(
                 'Sign out',
                 style: Theme.of(context).textTheme.titleLarge,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ullamki/components/my_button.dart';
 import 'package:ullamki/components/my_textfield.dart';
-import 'package:ullamki/service/auth_service.dart';
 
 class SignInScreen extends StatefulWidget {
   final Function()? onTap;
@@ -12,68 +11,8 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  final AuthService authService = AuthService();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
-  // sign user in method
-  void signUserIn() async {
-    // show loading circle
-    // showDialog(
-    //   context: context,
-    //   builder: (context) {
-    //     return const Center(
-    //       child: CircularProgressIndicator(),
-    //     );
-    //   },
-    // );
-
-    // try sign in
-    authService.signInWithEmailAndPassword(
-        emailController.text.trim(), passwordController.text.trim());
-    // pop the loading circle
-    // Navigator.pop(context);
-  }
-
-  void SignInAnonymously() {
-    authService.SignInWithAnonymously();
-  }
-
-  // wrong email message popup
-  void wrongEmailMessage() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const AlertDialog(
-          backgroundColor: Colors.deepPurple,
-          title: Center(
-            child: Text(
-              'Incorrect Email',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  // wrong password message popup
-  void wrongPasswordMessage() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const AlertDialog(
-          backgroundColor: Colors.deepPurple,
-          title: Center(
-            child: Text(
-              'Incorrect Password',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +21,7 @@ class _SignInScreenState extends State<SignInScreen> {
         backgroundColor: Theme.of(context).colorScheme.background,
         actions: [
           TextButton(
-              onPressed: SignInAnonymously,
+              onPressed: () {},
               child: Text(
                 'Skip',
                 style: Theme.of(context).textTheme.bodySmall,
@@ -141,7 +80,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                     ),
                     OutlinedButton(
-                        onPressed: signUserIn,
+                        onPressed: () {},
                         child: Text(
                           'Sign In',
                         ))
