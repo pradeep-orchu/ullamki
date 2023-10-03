@@ -28,7 +28,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.search_outlined))
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, 'search');
+              },
+              icon: Icon(Icons.search_outlined))
         ],
       ),
       drawer: Drawer(

@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:ullamki/components/my_textfield.dart';
 
-class NotificationScreen extends StatefulWidget {
-  const NotificationScreen({super.key});
+class SearchScreen extends StatefulWidget {
+  const SearchScreen({super.key});
 
   @override
-  State<NotificationScreen> createState() => _NotificationScreenState();
+  State<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _NotificationScreenState extends State<NotificationScreen> {
+class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        title: Text('Search'),
         centerTitle: true,
-        title: Text('Notifications'),
+        backgroundColor: Theme.of(context).colorScheme.background,
       ),
       body: SafeArea(
         child: SingleChildScrollView(

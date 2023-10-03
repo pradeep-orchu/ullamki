@@ -5,6 +5,7 @@ import 'package:ullamki/firebase_options.dart';
 import 'package:ullamki/screens/home/home_screen.dart';
 import 'package:ullamki/screens/home/start_screen.dart';
 import 'package:ullamki/screens/notification/notification_screen.dart';
+import 'package:ullamki/screens/search/search_scren.dart';
 import 'package:ullamki/screens/settings/settings_screen.dart';
 
 Future<void> main() async {
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         'home': (context) => HomeScreen(),
         'notification': (context) => NotificationScreen(),
         'settings': (context) => SettingsScreen(),
+        'search': (context) => SearchScreen(),
       },
       initialRoute: 'start',
     );

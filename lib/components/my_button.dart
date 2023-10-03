@@ -1,5 +1,4 @@
 import 'dart:core';
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 
@@ -34,10 +33,10 @@ class MyButton extends StatelessWidget {
                 height: 30,
               ),
               Text(
-                "Sign In with ${name}",
+                "Sign In with $name",
                 style: Theme.of(context).textTheme.titleMedium,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 30,
               )
             ],
