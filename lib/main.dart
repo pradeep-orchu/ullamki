@@ -5,9 +5,18 @@ import 'package:ullamki/screens/home/start_screen.dart';
 import 'package:ullamki/screens/notification/notification_screen.dart';
 import 'package:ullamki/screens/search/search_scren.dart';
 import 'package:ullamki/screens/settings/settings_screen.dart';
+import 'package:appwrite/appwrite.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  Client client = Client();
+  client
+      .setEndpoint('https://cloud.appwrite.io/v1')
+      .setProject('vallanki')
+      .setSelfSigned(
+          status:
+              true); // For self signed certificates, only use for development
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
