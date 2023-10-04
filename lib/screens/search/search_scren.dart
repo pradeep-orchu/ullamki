@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ullamki/components/my_textfield.dart';
+import 'package:ullamki/utils/userdetails.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
+  final UserDetails? userDetails;
+  const SearchScreen({super.key, this.userDetails});
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();

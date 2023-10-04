@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ullamki/components/user_profile.dart';
+import 'package:ullamki/utils/userdetails.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -8,19 +10,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  UserDetails? userDetails;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.background,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.location_on_outlined),
-            Text('Eluru,AP'),
-          ],
-        ),
+        title: Text('Vallanki'),
         actions: [
           IconButton(
               onPressed: () {
@@ -30,46 +27,19 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       drawer: Drawer(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            DrawerHeader(
-                child: Center(
-                    child: Text(
-              'Ullanki',
-              style: Theme.of(context).textTheme.displayMedium,
-            ))),
-            TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, 'notification');
-              },
-              child: Text(
-                'Notification',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, 'settings');
-              },
-              child: Text(
-                'Settings',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-            ),
-            TextButton(
-              onPressed: () {},
-              child: Text(
-                'Sign out',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-            ),
-          ],
-        ),
+        child: DrawerHeader(child: Center(child: UserProfile())),
       ),
-      body: Center(
-        child: Text('Home'),
-      ),
+      body: userDetails != null
+          ? Center(
+              child: Text('Home'),
+            )
+          : Center(
+              child: TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, 'search');
+                  },
+                  child: Text('Search')),
+            ),
     );
   }
 }
