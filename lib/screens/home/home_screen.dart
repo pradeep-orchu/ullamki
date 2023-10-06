@@ -1,15 +1,21 @@
+import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:ullamki/components/user_profile.dart';
 import 'package:ullamki/utils/userdetails.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({
+    super.key,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final client = Client()
+      .setEndpoint('https://cloud.appwrite.io/v1')
+      .setProject('vallanki');
   UserDetails? userDetails;
   @override
   Widget build(BuildContext context) {
@@ -27,7 +33,12 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       drawer: Drawer(
-        child: DrawerHeader(child: Center(child: UserProfile())),
+        child: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [Center(child: UserProfile()), Text('Notification')],
+          ),
+        ),
       ),
       body: userDetails != null
           ? Center(

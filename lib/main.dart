@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ullamki/examp/appwrite_auth.dart';
 import 'package:ullamki/screens/home/home_screen.dart';
 import 'package:ullamki/screens/home/start_screen.dart';
 import 'package:ullamki/screens/notification/notification_screen.dart';
@@ -7,22 +8,17 @@ import 'package:ullamki/screens/profile/add_user_details.dart';
 import 'package:ullamki/screens/search/search_scren.dart';
 import 'package:ullamki/screens/settings/settings_screen.dart';
 import 'package:appwrite/appwrite.dart';
-import 'package:appwrite/models.dart' as models;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   Client client = Client();
-  client
-      .setEndpoint('https://cloud.appwrite.io/v1')
-      .setProject('vallanki')
-      .setSelfSigned(status: true);
-  Account account =
-      Account(client); // For self signed certificates, only use for development
+  client.setEndpoint('https://cloud.appwrite.io/v1').setProject('vallanki');
+  // For self signed certificates, only use for development
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -44,8 +40,9 @@ class MyApp extends StatelessWidget {
         'settings': (context) => SettingsScreen(),
         'search': (context) => SearchScreen(),
         'details': (context) => AddUserDetailsScreen(),
+        'appwriteauth': (context) => MyForm(),
       },
-      initialRoute: 'home',
+      initialRoute: 'appwriteauth',
     );
   }
 }

@@ -38,6 +38,7 @@ dependencies:
   google_sign_in: ^6.1.5
   appwrite: ^11.0.0
   cached_network_image: ^3.3.0
+  location: ^5.0.3
 
 dev_dependencies:
   flutter_test:

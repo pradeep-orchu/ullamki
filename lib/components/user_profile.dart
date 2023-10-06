@@ -1,10 +1,26 @@
+import 'package:appwrite/appwrite.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:ullamki/utils/userdetails.dart';
 
 class UserProfile extends StatelessWidget {
   final UserDetails? userDetails;
-  const UserProfile({super.key, this.userDetails});
+  UserProfile({super.key, this.userDetails});
+  final client = Client()
+      .setEndpoint('https://cloud.appwrite.io/v1')
+      .setProject('vallanki');
+
+  Future<void> logout() async {
+    // Get the current session ID.
+
+    try {
+      await Account(client).deleteSessions();
+
+      // The user is now logged out.
+    } catch (error) {
+      // Handle the error.
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +30,11 @@ class UserProfile extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              GestureDetector(onTap: () {}, child: Icon(Icons.logout))
+              GestureDetector(
+                  onTap: () {
+                    Account(client).deleteSessions();
+                  },
+                  child: Icon(Icons.logout))
             ],
           ),
           CircleAvatar(

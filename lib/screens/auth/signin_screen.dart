@@ -1,3 +1,4 @@
+import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
 import 'package:ullamki/components/my_button.dart';
 import 'package:ullamki/components/my_textfield.dart';
@@ -11,6 +12,9 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  final client = Client()
+      .setEndpoint('https://cloud.appwrite.io/v1')
+      .setProject('vallanki');
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -80,7 +84,11 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                     ),
                     OutlinedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Account(client).createEmailSession(
+                              email: emailController.text,
+                              password: passwordController.text);
+                        },
                         child: Text(
                           'Sign In',
                         ))
