@@ -1,7 +1,9 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:ullamki/components/my_button.dart';
 import 'package:ullamki/components/my_textfield.dart';
+import 'package:ullamki/service/auth_api.dart';
 
 class SignInScreen extends StatefulWidget {
   final Function()? onTap;
@@ -12,11 +14,63 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  final client = Client()
-      .setEndpoint('https://cloud.appwrite.io/v1')
-      .setProject('vallanki');
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  bool loading = false;
+
+  signIn() async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return Dialog(
+            backgroundColor: Colors.transparent,
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: const [
+                  CircularProgressIndicator(),
+                ]),
+          );
+        });
+
+    try {
+      final AuthAPI appwrite = context.read<AuthAPI>();
+      await appwrite.createEmailSession(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      Navigator.pop(context);
+    } on AppwriteException catch (e) {
+      Navigator.pop(context);
+      showAlert(title: 'Login failed', text: e.message.toString());
+    }
+  }
+
+  showAlert({required String title, required String text}) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(title),
+            content: Text(text),
+            actions: [
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Ok'))
+            ],
+          );
+        });
+  }
+
+  signInWithProvider(String provider) {
+    try {
+      context.read<AuthAPI>().signInWithProvider(provider: provider);
+    } on AppwriteException catch (e) {
+      showAlert(title: 'Login failed', text: e.message.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,11 +138,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                     ),
                     OutlinedButton(
-                        onPressed: () {
-                          Account(client).createEmailSession(
-                              email: emailController.text,
-                              password: passwordController.text);
-                        },
+                        onPressed: signIn,
                         child: Text(
                           'Sign In',
                         ))

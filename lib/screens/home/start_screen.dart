@@ -1,4 +1,5 @@
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:ullamki/components/user_profile.dart';
 import 'package:ullamki/screens/auth/auth_screen.dart';
@@ -15,38 +16,26 @@ class StartScreen extends StatefulWidget {
 }
 
 class _StartScreenState extends State<StartScreen> {
-  final client = Client()
+  Account account = Account(Client()
       .setEndpoint('https://cloud.appwrite.io/v1')
-      .setProject('vallanki');
-
-  void error(e) {
-    print(e);
+      .setProject('vallanki'));
+  User? loggedInUser;
+  @override
+  void initState() {
+    super.initState();
+    state();
   }
 
-  Future<bool> isLoggedIn() async {
-    try {
-      Future response = Account(client).get();
-      // The user is logged in.
-      response.then((value) => true);
-      return true;
-    } catch (error) {
-      // The user is not logged in.
-      return false;
-    }
+  Future<void> state() async {
+    final user = await account.get();
+    setState(() {
+      loggedInUser = user;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     // If the user is logged in, navigate to the home screen.
-    return FutureBuilder(
-      future: isLoggedIn(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return HomeScreen();
-        } else {
-          return AuthScreen();
-        }
-      },
-    );
+    return loggedInUser != null ? HomeScreen() : AuthScreen();
   }
 }

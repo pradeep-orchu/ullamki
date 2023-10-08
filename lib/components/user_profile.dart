@@ -1,40 +1,35 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:ullamki/service/auth_api.dart';
 import 'package:ullamki/utils/userdetails.dart';
 
-class UserProfile extends StatelessWidget {
-  final UserDetails? userDetails;
-  UserProfile({super.key, this.userDetails});
-  final client = Client()
-      .setEndpoint('https://cloud.appwrite.io/v1')
-      .setProject('vallanki');
+class UserProfile extends StatefulWidget {
+  UserProfile({
+    super.key,
+  });
 
-  Future<void> logout() async {
-    // Get the current session ID.
+  @override
+  State<UserProfile> createState() => _UserProfileState();
+}
 
-    try {
-      await Account(client).deleteSessions();
-
-      // The user is now logged out.
-    } catch (error) {
-      // Handle the error.
-    }
+class _UserProfileState extends State<UserProfile> {
+  String? name;
+  signOut() {
+    final AuthAPI appwrite = context.read<AuthAPI>();
+    appwrite.signOut();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (userDetails == null) {
+    if (name == null) {
       return Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              GestureDetector(
-                  onTap: () {
-                    Account(client).deleteSessions();
-                  },
-                  child: Icon(Icons.logout))
+              GestureDetector(onTap: signOut, child: Icon(Icons.logout))
             ],
           ),
           CircleAvatar(
@@ -65,13 +60,24 @@ class UserProfile extends StatelessWidget {
     } else {
       return Column(
         children: [
-          CircleAvatar(
-            child: CachedNetworkImage(
-              imageUrl: userDetails!.photoutl.toString(),
-              placeholder: (context, url) => const CircularProgressIndicator(),
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              GestureDetector(onTap: signOut, child: Icon(Icons.logout))
+            ],
           ),
-          Text(userDetails!.name.toString()),
+          CircleAvatar(
+            child: Icon(
+              Icons.person_outline,
+              size: 50,
+            ),
+            radius: 50,
+            backgroundColor: Theme.of(context).colorScheme.background,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Text(name.toString()),
         ],
       );
     }

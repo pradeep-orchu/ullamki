@@ -1,7 +1,9 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:ullamki/components/my_button.dart';
 import 'package:ullamki/components/my_textfield.dart';
+import 'package:ullamki/service/auth_api.dart';
 
 class SignUpScreen extends StatefulWidget {
   final Function()? onTap;
@@ -12,12 +14,58 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final client = Client()
-      .setEndpoint('https://cloud.appwrite.io/v1')
-      .setProject('vallanki');
+  final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final cpassword = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+
+  signUp() async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return Dialog(
+            backgroundColor: Colors.transparent,
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: const [
+                  CircularProgressIndicator(),
+                ]),
+          );
+        });
+    try {
+      final AuthAPI appwrite = context.read<AuthAPI>();
+      await appwrite.createUser(
+        email: emailController.text,
+        password: passwordController.text,
+        name: nameController.text,
+      );
+      Navigator.pop(context);
+      const snackbar = SnackBar(content: Text('Account created!'));
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+    } on AppwriteException catch (e) {
+      Navigator.pop(context);
+      showAlert(title: 'Account creation failed', text: e.message.toString());
+    }
+  }
+
+  showAlert({required String title, required String text}) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(title),
+            content: Text(text),
+            actions: [
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Ok'))
+            ],
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +101,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   style: Theme.of(context).textTheme.bodyLarge),
 
               const SizedBox(height: 20),
+              // name textfield
+              MyTextField(
+                controller: emailController,
+                hintText: 'Name',
+                obscureText: false,
+              ),
 
+              const SizedBox(height: 10),
               // email textfield
               MyTextField(
                 controller: emailController,
@@ -72,14 +127,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
               const SizedBox(height: 10),
 
-              // password textfield
-              MyTextField(
-                controller: cpassword,
-                hintText: 'Confirm Password',
-                obscureText: true,
-              ),
+              // conformPassword textfield
+              // MyTextField(
+              //   controller: confirmPasswordController,
+              //   hintText: 'Confirm Password',
+              //   obscureText: true,
+              // ),
 
-              const SizedBox(height: 10),
+              // const SizedBox(height: 10),
 
               // forgot password?
               Padding(
@@ -95,12 +150,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                     OutlinedButton(
-                        onPressed: () {
-                          Account(client).create(
-                              email: emailController.text,
-                              password: passwordController.text,
-                              userId: ID.unique());
-                        },
+                        onPressed: signUp,
                         child: Text(
                           'Sign Up',
                         ))
