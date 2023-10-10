@@ -40,6 +40,13 @@ dependencies:
   cached_network_image: ^3.3.0
   location: ^5.0.3
   provider: ^6.0.5
+  flutter_osm_plugin: ^0.60.5
+  flutter_map: ^5.0.0
+  latlong2: ^0.9.0
+  url_launcher: ^6.1.14
+  geocoding: ^2.1.1
+  flutter_map_location_marker: ^7.0.5
+  geolocator: ^10.1.0
 
 dev_dependencies:
   flutter_test:

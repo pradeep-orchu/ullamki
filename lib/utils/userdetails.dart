@@ -1,5 +1,3 @@
-import 'package:appwrite/models.dart';
-
 class UserDetails {
   final String? name;
   final String? id;

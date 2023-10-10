@@ -185,7 +185,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   // google button
                   //SquareTile(imagePath: 'lib/images/google.png'),
                   MyButton(
-                      onTap: () {},
+                      onTap: signInWithProvider('google'),
                       name: 'Google',
                       logo: AssetImage('assets/images/google-logo.png')),
                   SizedBox(height: 10),

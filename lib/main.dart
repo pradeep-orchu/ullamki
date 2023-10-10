@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:ullamki/examp/map.dart';
 import 'package:ullamki/screens/auth/auth_screen.dart';
 import 'package:ullamki/screens/home/home_screen.dart';
 import 'package:ullamki/service/auth_api.dart';
@@ -29,11 +30,12 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           dividerTheme: DividerThemeData(color: Colors.transparent)),
       home: value == AuthStatus.uninitialized
-          ? const Scaffold(
+          ? Scaffold(
+              appBar: AppBar(),
               body: Center(child: CircularProgressIndicator()),
             )
           : value == AuthStatus.authenticated
-              ? const HomeScreen()
+              ? HomeScreen()
               : const AuthScreen(),
     );
   }

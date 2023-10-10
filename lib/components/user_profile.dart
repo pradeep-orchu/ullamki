@@ -1,9 +1,7 @@
-import 'package:appwrite/appwrite.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ullamki/screens/profile/add_user_details.dart';
 import 'package:ullamki/service/auth_api.dart';
-import 'package:ullamki/utils/userdetails.dart';
 
 class UserProfile extends StatefulWidget {
   UserProfile({
@@ -45,7 +43,11 @@ class _UserProfileState extends State<UserProfile> {
           ),
           OutlinedButton(
               onPressed: () {
-                Navigator.pushNamed(context, 'details');
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            AddUserDetailsScreen()));
               },
               child: Padding(
                 padding:

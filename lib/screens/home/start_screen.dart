@@ -1,9 +1,7 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
-import 'package:ullamki/components/user_profile.dart';
 import 'package:ullamki/screens/auth/auth_screen.dart';
-import 'package:ullamki/screens/auth/signin_screen.dart';
 import 'package:ullamki/screens/home/home_screen.dart';
 
 class StartScreen extends StatefulWidget {
