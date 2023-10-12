@@ -3,13 +3,13 @@ import 'package:appwrite/models.dart';
 import 'package:ullamki/service/auth_service.dart';
 import 'package:ullamki/utils/constants.dart';
 
-class DatabaseService {
+class MessageService {
   Client client = Client();
   late final Account account;
   late final Databases databases;
   final AuthService auth = AuthService();
 
-  DatabaseService() {
+  MessageService() {
     init();
   }
 

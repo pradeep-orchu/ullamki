@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:ullamki/components/chat_tile.dart';
 import 'package:ullamki/components/message_tile.dart';
 import 'package:ullamki/components/my_textfield.dart';
-import 'package:ullamki/service/database_service.dart';
+import 'package:ullamki/service/message_service.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -15,7 +15,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController chatController = TextEditingController();
-  final database = DatabaseService();
+  final database = MessageService();
   late List<Document>? messages = [];
   TextEditingController messageTextController = TextEditingController();
 
