@@ -1,15 +1,15 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
-import 'package:ullamki/service/auth_api.dart';
+import 'package:ullamki/service/auth_service.dart';
 import 'package:ullamki/utils/constants.dart';
 
-class DatabaseAPI {
+class DatabaseService {
   Client client = Client();
   late final Account account;
   late final Databases databases;
-  final AuthAPI auth = AuthAPI();
+  final AuthService auth = AuthService();
 
-  DatabaseAPI() {
+  DatabaseService() {
     init();
   }
 
@@ -35,7 +35,7 @@ class DatabaseAPI {
         collectionId: COLLECTION_MESSAGES,
         documentId: ID.unique(),
         data: {
-          'text': message,
+          'text': message.toString(),
           'date': DateTime.now().toString(),
           'user_id': auth.userid
         });

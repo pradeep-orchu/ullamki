@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ullamki/components/flat_tile.dart';
+import 'package:ullamki/components/message_tile.dart';
 import 'package:ullamki/components/my_textfield.dart';
 import 'package:ullamki/utils/userdetails.dart';
 
@@ -30,6 +32,16 @@ class _SearchScreenState extends State<SearchScreen> {
                 obscureText: false,
                 icon: Icon(Icons.search_outlined),
               ),
+              SizedBox(
+                height: 15,
+              ),
+              ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: 20,
+                  itemBuilder: (context, index) {
+                    return FlatTile();
+                  })
             ],
           ),
         ),

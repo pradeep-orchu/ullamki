@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ullamki/components/message_tile.dart';
 import 'package:ullamki/components/my_textfield.dart';
 
 class NotificationScreen extends StatefulWidget {
@@ -28,6 +29,16 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 obscureText: false,
                 icon: Icon(Icons.search_outlined),
               ),
+              SizedBox(
+                height: 15,
+              ),
+              ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: 20,
+                  itemBuilder: (context, index) {
+                    return MessageTile();
+                  })
             ],
           ),
         ),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ullamki/components/my_button.dart';
 import 'package:ullamki/components/my_textfield.dart';
-import 'package:ullamki/service/auth_api.dart';
+import 'package:ullamki/service/auth_service.dart';
 
 class SignUpScreen extends StatefulWidget {
   final Function()? onTap;
@@ -34,7 +34,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           );
         });
     try {
-      final AuthAPI appwrite = context.read<AuthAPI>();
+      final AuthService appwrite = context.read<AuthService>();
       await appwrite.createUser(
         email: emailController.text,
         password: passwordController.text,

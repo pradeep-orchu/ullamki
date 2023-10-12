@@ -9,7 +9,7 @@ enum AuthStatus {
   unauthenticated,
 }
 
-class AuthAPI extends ChangeNotifier {
+class AuthService extends ChangeNotifier {
   Client client = Client();
   late final Account account;
 
@@ -25,7 +25,7 @@ class AuthAPI extends ChangeNotifier {
   String? get userid => _currentUser?.$id;
 
   // Constructor
-  AuthAPI() {
+  AuthService() {
     init();
     loadUser();
   }

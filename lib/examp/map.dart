@@ -4,13 +4,13 @@ import 'package:geocoding/geocoding.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart' as loc;
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({super.key});
+class MapScreenEx extends StatefulWidget {
+  MapScreenEx({super.key});
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MapScreenExState createState() => _MapScreenExState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MapScreenExState extends State<MapScreenEx> {
   // @override
   // void initState() {
   //   super.initState();
@@ -53,8 +53,9 @@ class _MyHomePageState extends State<MyHomePage> {
         await placemarkFromCoordinates(latitude!, longitude!);
     if (placemarks.isNotEmpty) {
       String? citie = placemarks[1].locality;
-      String? city = placemarks[0].locality;
+      String? city = placemarks[1].locality;
       print(city);
+      print(placemarks);
       setState(() {
         cityname = city;
       });
@@ -69,20 +70,33 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Map'),
-          centerTitle: true,
+      appBar: AppBar(
+        title: cityname == null ? Text('Map') : Text(cityname!),
+        centerTitle: true,
+      ),
+      body: FlutterMap(
+        options: MapOptions(
+          center: _locationData == null
+              ? LatLng(16.6894559, 81.1229128)
+              : LatLng(_locationData!.latitude!, _locationData!.longitude!),
+          zoom: 15,
         ),
-        body: cityname == null
-            ? CircularProgressIndicator()
-            : Column(
-                children: [
-                  Text(cityname.toString()),
-                  Text(cities.toString()),
-                ],
-              ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: getloc,
-        ));
+        children: [
+          TileLayer(
+            urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+            userAgentPackageName: 'com.example.app',
+          ),
+          // RichAttributionWidget(
+          //   attributions: [
+          //     // TextSourceAttribution(
+          //     //   'OpenStreetMap contributors',
+          //     //   onTap: () => launchUrl(Uri.parse('https://openstreetmap.org/copyright')),
+          //     // ),
+          //   ],
+          // ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(onPressed: getloc),
+    );
   }
 }

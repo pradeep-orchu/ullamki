@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ullamki/components/my_button.dart';
 import 'package:ullamki/components/my_textfield.dart';
-import 'package:ullamki/service/auth_api.dart';
+import 'package:ullamki/service/auth_service.dart';
 
 class SignInScreen extends StatefulWidget {
   final Function()? onTap;
@@ -34,7 +34,7 @@ class _SignInScreenState extends State<SignInScreen> {
         });
 
     try {
-      final AuthAPI appwrite = context.read<AuthAPI>();
+      final AuthService appwrite = context.read<AuthService>();
       await appwrite.createEmailSession(
         email: emailController.text,
         password: passwordController.text,
@@ -66,7 +66,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   signInWithProvider(String provider) {
     try {
-      context.read<AuthAPI>().signInWithProvider(provider: provider);
+      context.read<AuthService>().signInWithProvider(provider: provider);
     } on AppwriteException catch (e) {
       showAlert(title: 'Login failed', text: e.message.toString());
     }
